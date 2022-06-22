@@ -50,8 +50,9 @@ test('testing checkbox and button behavior when it is checked or unchecked', () 
   // checking if checkbox is in fact checked
   expect(checkbox).toBeChecked();
 
-  // checking if button is disabled
+  // checking if button is disabled and gray
   expect(button).toBeDisabled();
+  expect(button).toHaveStyle({ backgroundColor: 'gray' });
 
   // clicking on checkbox again
   fireEvent.click(checkbox);
@@ -59,6 +60,30 @@ test('testing checkbox and button behavior when it is checked or unchecked', () 
   // checking if checkbox is in fact unchecked
   expect(checkbox).not.toBeChecked();
 
-  //checking if button is enabled again
+  //checking if button is enabled again and red
   expect(button).toBeEnabled();
+  expect(button).toHaveStyle({ backgroundColor: 'red' });
+  expect(button.textContent).toBe('Change to blue');
+
+  // clicking the button to change color and clicking on checkbox again 
+  fireEvent.click(button);
+  
+  // checking if the button changed the color and text
+  expect(button).toHaveStyle({ backgroundColor: 'blue' });
+  expect(button.textContent).toBe('Change to red');
+
+  // clicking on checkbox again to disable the button
+  fireEvent.click(checkbox);
+
+  // checking if the button is disabled and gray
+  expect(button).toBeDisabled();
+  expect(button).toHaveStyle({ backgroundColor: 'gray' });
+
+  // click on checkbox again to unable the button
+  fireEvent.click(checkbox);
+
+  // checking if the button is enabled and blue
+  expect(button).toBeEnabled();
+  expect(button).toHaveStyle({ backgroundColor: 'blue' });
+  expect(button.textContent).toBe('Change to red');
 })

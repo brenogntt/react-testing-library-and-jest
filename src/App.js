@@ -11,7 +11,7 @@ const newColorButton = buttonColor === 'red' ? 'blue': 'red';
   return (
     <div>
       <button 
-      style={{backgroundColor: buttonColor}}
+      style={{backgroundColor: disabled ? 'gray' : buttonColor}}
       onClick={() => setButtonColor(newColorButton)}
       disabled={disabled}
       >
@@ -20,7 +20,9 @@ const newColorButton = buttonColor === 'red' ? 'blue': 'red';
       <input 
       id="disable-button-checkbox"
       type="checkbox" 
-      onChange={(e) => { setDisabled(e.target.checked) }}
+      onChange={(e) => { 
+        setDisabled(e.target.checked)
+       }}
       />
       <label htmlFor='disable-button-checkbox'>Disable button</label>
     </div>
