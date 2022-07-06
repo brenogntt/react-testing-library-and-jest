@@ -1,31 +1,31 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import App from './App';
+import App, { replaceCamelWithSpaces } from './App';
 
 test('button has correct initial color', () => {
   render(<App/>);
 
-  //find an element with a role of button and text of 'Change to blue'
-  const button = screen.getByRole('button', { name: 'Change to blue' });
+  //find an element with a role of button and text of 'Change to MidnightBlue'
+  const button = screen.getByRole('button', { name: 'Change to Midnight Blue' });
   
-  // expect the background cplor to be red
-  expect(button).toHaveStyle({ backgroundColor: 'red' });
+  // expect the background cplor to be MediumViolateRed
+  expect(button).toHaveStyle({ backgroundColor: 'MediumViolateRed' });
 
   // click button
   fireEvent.click(button);
 
-  // expect the background color to be blue
-  expect(button).toHaveStyle({ backgroundColor: 'blue' });
+  // expect the background color to be MidnightBlue
+  expect(button).toHaveStyle({ backgroundColor: 'MidnightBlue' });
 
-  // expect the button text to be 'Change to red'
+  // expect the button text to be 'Change to MediumViolateRed'
 
-  expect(button.textContent).toBe('Change to red');
+  expect(button.textContent).toBe('Change to Medium Violate Red');
 });
 
 test('initial conditions', () => {
   render(<App />);
   
   // check that the button starts out enabled
-  const button = screen.getByRole('button', { name: 'Change to blue' });
+  const button = screen.getByRole('button', { name: 'Change to Midnight Blue' });
   expect(button).toBeEnabled();
 
   //check that the checkbox starts out unchecked
@@ -37,7 +37,7 @@ test('testing checkbox and button behavior when it is checked or unchecked', () 
   render(<App />);
 
   // checking initial state of the button
-  const button = screen.getByRole('button', { name: 'Change to blue' });
+  const button = screen.getByRole('button', { name: 'Change to Midnight Blue' });
   expect(button).toBeEnabled();
 
   // checking initial state of the checkbox
@@ -60,17 +60,17 @@ test('testing checkbox and button behavior when it is checked or unchecked', () 
   // checking if checkbox is in fact unchecked
   expect(checkbox).not.toBeChecked();
 
-  //checking if button is enabled again and red
+  //checking if button is enabled again and MediumViolateRed
   expect(button).toBeEnabled();
-  expect(button).toHaveStyle({ backgroundColor: 'red' });
-  expect(button.textContent).toBe('Change to blue');
+  expect(button).toHaveStyle({ backgroundColor: 'MediumViolateRed' });
+  expect(button.textContent).toBe('Change to Midnight Blue');
 
   // clicking the button to change color and clicking on checkbox again 
   fireEvent.click(button);
   
   // checking if the button changed the color and text
-  expect(button).toHaveStyle({ backgroundColor: 'blue' });
-  expect(button.textContent).toBe('Change to red');
+  expect(button).toHaveStyle({ backgroundColor: 'MidnightBlue' });
+  expect(button.textContent).toBe('Change to Medium Violate Red');
 
   // clicking on checkbox again to disable the button
   fireEvent.click(checkbox);
@@ -82,8 +82,20 @@ test('testing checkbox and button behavior when it is checked or unchecked', () 
   // click on checkbox again to unable the button
   fireEvent.click(checkbox);
 
-  // checking if the button is enabled and blue
+  // checking if the button is enabled and MidnightBlue
   expect(button).toBeEnabled();
-  expect(button).toHaveStyle({ backgroundColor: 'blue' });
-  expect(button.textContent).toBe('Change to red');
+  expect(button).toHaveStyle({ backgroundColor: 'MidnightBlue' });
+  expect(button.textContent).toBe('Change to Medium Violate Red');
+})
+
+describe('spaces before camel-case capital letters', () => {
+  test('Works for no inner capital letters', () => {
+    expect(replaceCamelWithSpaces('Red')).toBe('Red');
+  });
+  test('Works for one inner capital letters', () => {
+    expect(replaceCamelWithSpaces('MidnightBlue')).toBe('Midnight Blue');
+  });
+  test('Works for multiple inner capital letters', () => {
+    expect(replaceCamelWithSpaces('MediumVioletRed')).toBe('Medium Violet Red');
+  });
 })
