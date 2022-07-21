@@ -1,0 +1,12 @@
+{
+    "plugins": [ /* this plugins are the plugins that I want to use and thar are installed at packasge.json */
+       "testing-library",
+       "jest-dom" 
+    ],
+    "extends": [ /* this extends are talking about rules */
+        "react-app",  /* rules related to react-app */
+        "react-app/jest", /* rules related to jest */
+        "plugin:testing-library/react", /* rules related testing-library plugin */
+        "plugin:jest-dom/recommended" /* rules related jest-dom plugin */
+    ]
+}
